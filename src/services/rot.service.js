@@ -2,13 +2,29 @@ const { RotationDb } = require('../db')
 const { stringRotator } = require('../utils/rot-converter')
 
 /**
- * Save the original text in db
+ * Get the rot string on the base of original string in db
  * 
  * @param {string} content original string 
  * @returns the db response after saving it into the db
  */
-const saveOriginal = async (content) => {
+const getRotation = async (originalString) => {
   try {
+    return await RotationDb.fetch(originalString)
+  } catch(e) {
+    throw new Error(e.message)
+  }
+}
+
+/**
+ * Save the original and rot string in db
+ * 
+ * @param {string} originalString original string
+ * @param {string} rotString rot13 string
+ * @returns the db response after saving it into the db
+ */
+const saveEncryption = async (originalString, rotString) => {
+  try {
+    const content = { originalString, rotString }
     return await RotationDb.save(content)
   } catch(e) {
     throw new Error(e.message)
@@ -27,6 +43,7 @@ const encrypt = (inputString) => {
 }
 
 module.exports = {
-  saveOriginal,
+  getRotation,
+  saveEncryption,
   encrypt
 }

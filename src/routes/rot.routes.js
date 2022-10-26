@@ -2,6 +2,6 @@ const express = require('express')
 const router = express.Router()
 const { RotationController } = require('../controllers');
 
-router.post('/convert', RotationController.convert)
+router.post('/string_rotation', RotationController.convert)
 
 module.exports = router

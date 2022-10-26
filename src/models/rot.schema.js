@@ -4,13 +4,20 @@ const Schema = mongoose.Schema;
 
 // defined schema to store orignal text
 const Rotations = new Schema({
-  data: {
+  originalString: {
+    type: String,
+    unique: true,
+    index: true,
+    required: true
+  },
+  rotString: {
     type: String,
     required: true
   },
 },
 {
-  timestamps: true
+  _id: true,
+  timestamps: false
 });
 
 module.exports = mongoose.model('rotations', Rotations );
